@@ -20,6 +20,8 @@ public:
 	QAction *accionGuardar;
 	QAction *accionGuardarComo;
 	bool modificado;
+	QString ruta;
+	
 	
 private:
 	void hacerMenus();
@@ -30,5 +32,10 @@ public slots:
 	void slotGuardar();
 	void slotGuardarComo();
 	void modificarBool();
+	bool guardarFichero(QString nombreFichero);
+	void establecerFicheroActual(const QString &nombreFichero);
+	QString nombreCorto(const QString &nombreCompleto);
+
+	
 };
 #endif
