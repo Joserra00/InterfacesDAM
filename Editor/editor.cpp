@@ -3,12 +3,10 @@
 #include <QTextDocument>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QDebug>
 #include <QFile>
-#include <QString>
 #include <QTextBlock>
 #include <QTextStream>
-Editor::Editor(QWidget *parent){
+Editor::Editor(QWidget *parent):QMainWindow(parent){
 
 
 	editorCentral = new QTextEdit();
@@ -19,7 +17,7 @@ Editor::Editor(QWidget *parent){
 	hacerMenus();
 		connect(editorCentral,SIGNAL(textChanged()),
 			this,SLOT(modificarBool()));
-	QString ruta;
+	 rutaArchivo="";
 	
 
 }
@@ -74,36 +72,28 @@ void Editor::hacerMenus(){
 	
 
 }
-void Editor::slotGuardarComo(){
-	 ruta =QFileDialog::getSaveFileName(this, tr("Batechar i Guardar"),".",tr("Texto(*.txt *.doc *.info)"));
+bool Editor::slotGuardarComo(){
+	 QString ruta =QFileDialog::getSaveFileName(this, tr("Batechar i Guardar"),".",tr("Texto(*.txt *.doc *.info)"));
 	qDebug()<< "Vas a guardar" << ruta;
-	QFile fichero(ruta);
-	if(!fichero.open(QIODevice::WriteOnly)){
-	QMessageBox::critical(this,QString("Problema gordo"),
-			QString("no podemos tocar el arhicvo"),QMessageBox::Close);
-			return;
+	return guardarFichero(ruta);
+
+}
+bool Editor::slotGuardar(){
+	if(rutaArchivo.isEmpty()){
 		
-	
+		return slotGuardarComo();
 	}
-	QTextStream flujo(&fichero);
-	for(int i  =0; i<editorCentral->document()->blockCount();i++){
-		QString cadena = editorCentral->document()->findBlockByNumber(i).text();
-		flujo << cadena;		
-	}
-
-}
-void Editor::slotGuardar(){
-	
-	qDebug() << "Vas a guardar el archivo " << ruta;
-	guardarFichero(ruta);
+	return guardarFichero(rutaArchivo);
 	
 	
 
 
 }
-bool Editor::guardarFichero(QString nombreFichero) {
-    
-        QFile fichero(nombreFichero);
+bool Editor::guardarFichero(QString ruta) {
+    	if(ruta.isEmpty()){
+    		return false;
+    	}
+        QFile fichero(ruta);
          if (!fichero.open(QIODevice::WriteOnly)) {
                 QMessageBox::warning(this, tr("Editor"),
                              tr("Cannot write file %1:\n%2.")
@@ -114,53 +104,48 @@ bool Editor::guardarFichero(QString nombreFichero) {
         QTextStream stream(&fichero);
 
 
-    for(int i=0; i< editorCentral->document()->blockCount();i++)
-        stream << editorCentral->document()->findBlockByNumber(i).text() << endl;
+    for(int i=0; i< editorCentral->document()->blockCount();i++){
+        stream << editorCentral->document()->findBlockByNumber(i).text() << Qt::endl;
+        }
         
-
+	rutaArchivo=ruta;
     modificado=false;
         return true;
 }
 
-void Editor::establecerFicheroActual(const QString &nombreFichero)
-{
-    setWindowModified(false);
-    QString nombreAMostrar = tr("Untitled");
-    if (!nombreFichero.isEmpty()) {
-        nombreAMostrar = nombreCorto(nombreFichero);
 
-   
-    }
-
-    setWindowTitle(tr("%1[*] - %2").arg(nombreAMostrar)
-                                   .arg(tr("Spreadsheet")));
-}
-QString Editor::nombreCorto(const QString &nombreCompleto)
-{
-    return QFileInfo(nombreCompleto).fileName();
-}
 
 
 
 void Editor::slotAbrir(){
-	QTextDocument *document = editorCentral->document();
-	document->clear();
+	if(modificado){
+		int respuesta = QMessageBox::warning(this,QString("Abrir Documento"),
+		QString("Archivo Modificado ¿Que hago?"),
+		QMessageBox::Yes | QMessageBox::Cancel |QMessageBox::Save);
+		if(respuesta==QMessageBox::Cancel)return;
+		if (respuesta == QMessageBox::Save)slotGuardar();
+		if (respuesta == QMessageBox::Yes)slotGuardar();
+	
+	}
+	
 	int respuesta = QMessageBox::warning(this,QString("Abrir Documento"),
 	QString("¿Seguro? ¿Borro?"),
 	QMessageBox::Yes | QMessageBox::No);
 	if (respuesta == QMessageBox::No)
 	return;
-	document->clear();
-	ruta =QFileDialog::getOpenFileName(this, QString("Abrir archivo"),".",QString("Ficheros de texto (*.txt)"));
-	qDebug() << "Vas a abrir el archivo " << ruta;
 	
-	QFile fichero(ruta);
+	 rutaArchivo =QFileDialog::getOpenFileName(this, QString("Abrir archivo"),".",QString("Ficheros de texto (*.txt)"));
+	qDebug() << "Vas a abrir el archivo " << rutaArchivo;
+	
+	QFile fichero(rutaArchivo);
 	if (!fichero.open(QIODevice::ReadOnly)){
 		QMessageBox::critical(this,QString("Problema gordo"),
 			QString("no podemos tocar el arhicvo"),QMessageBox::Ok);
 			return;
 	
 	}
+	QTextDocument *document = editorCentral->document();
+	document->clear();
 	QTextStream flujo(&fichero);
 	while(!flujo.atEnd()){
 		QString linea = flujo.readLine();
@@ -179,6 +164,27 @@ void Editor::modificarBool(){
 	modificado=true;
 
 }
-
+void Editor::closeEvent(QCloseEvent *event){
+	qDebug()<< modificado;
+	if(modificado){
+		int respuesta = QMessageBox::warning(this,QString("Guardar Documento"),
+		QString("Archivo Modificado ¿Quieres Guardar?"),
+		QMessageBox::Yes | QMessageBox::Cancel);
+		if(respuesta==QMessageBox::Cancel){
+		event->accept();
+		}
+		if (respuesta == QMessageBox::Yes){
+		if(slotGuardar()){
+			event->accept();
+			return;
+		
+		}else event->ignore();
+		}
+	
+	}else{
+	event->accept();
+	
+	}
+}
 
 

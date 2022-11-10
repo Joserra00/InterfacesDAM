@@ -6,7 +6,8 @@
 #include <QAction>
 #include <QToolBar>
 #include <QString>
-
+#include <QDebug>
+#include <QCloseEvent>
 
 class Editor : public QMainWindow{
 Q_OBJECT
@@ -20,21 +21,21 @@ public:
 	QAction *accionGuardar;
 	QAction *accionGuardarComo;
 	bool modificado;
-	QString ruta;
+	QString rutaArchivo;
 	
 	
 private:
 	void hacerMenus();
+	void closeEvent(QCloseEvent *event);
 	
 public slots:
 	void slotSalir();
 	void slotAbrir();
-	void slotGuardar();
-	void slotGuardarComo();
+	bool slotGuardar();
+	bool slotGuardarComo();
 	void modificarBool();
-	bool guardarFichero(QString nombreFichero);
-	void establecerFicheroActual(const QString &nombreFichero);
-	QString nombreCorto(const QString &nombreCompleto);
+	bool guardarFichero(QString ruta);
+
 
 	
 };
