@@ -107,11 +107,11 @@ bool Editor::guardarFichero(QString ruta) {
 
 
     for(int i=0; i< editorCentral->document()->blockCount();i++){
-        stream << editorCentral->document()->findBlockByNumber(i).text() << Qt::endl;
+        stream << editorCentral->document()->findBlockByNumber(i).text() << "\n";
         }
         
 	rutaArchivo=ruta;
-    modificado=false;
+    	modificado=false;
         return true;
 }
 
@@ -135,17 +135,28 @@ void Editor::slotAbrir(){
 	QMessageBox::Yes | QMessageBox::No);
 	if (respuesta == QMessageBox::No)
 	return;
+	QString ruta =QFileDialog::getOpenFileName(this, QString("Abrir archivo"),".",QString("Ficheros de texto (*.txt)"));
+	qDebug() << "Vas a abrir el archivo " << ruta;
+	abrirFichero(ruta);
+	anyadirArchivoMenu(ruta);
+
+}
+bool Editor::abrirFichero(QString ruta){
 	
-	 rutaArchivo =QFileDialog::getOpenFileName(this, QString("Abrir archivo"),".",QString("Ficheros de texto (*.txt)"));
-	qDebug() << "Vas a abrir el archivo " << rutaArchivo;
+	if(ruta.isEmpty()){
+		return false;
+	}	
 	
-	QFile fichero(rutaArchivo);
+	rutaArchivo=ruta;
+		
+
+	QFile fichero(ruta);
 	if (!fichero.open(QIODevice::ReadOnly)){
 		QMessageBox::critical(this,QString("Problema gordo"),
 			QString("no podemos tocar el arhicvo"),QMessageBox::Ok);
-			return;
+			return false;
+			}
 	
-	}
 	QTextDocument *document = editorCentral->document();
 	document->clear();
 	QTextStream flujo(&fichero);
@@ -154,8 +165,11 @@ void Editor::slotAbrir(){
 		editorCentral->append(linea);
 	}
 	
-	anyadirArchivoMenu(rutaArchivo);
+	
 	modificado = false;
+	return true;
+
+
 
 }
 void Editor::slotSalir(){
@@ -210,6 +224,7 @@ void Editor:: slotAbrirReciente(){
 	QObject *oEmisor = sender();
 	QAction *actionCulpable = qobject_cast<QAction*>(oEmisor);
 	QString rutaCompleta= actionCulpable->data().toString();
+	abrirFichero(rutaCompleta);
 
 
 }

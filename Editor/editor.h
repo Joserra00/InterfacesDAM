@@ -32,6 +32,7 @@ private:
 	void hacerMenus();
 	void closeEvent(QCloseEvent *event);
 	void anyadirArchivoMenu(QString ruta);
+	bool abrirFichero(QString ruta);
 	
 public slots:
 	void slotAbrirReciente();
