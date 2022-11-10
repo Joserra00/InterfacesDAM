@@ -18,6 +18,7 @@ Editor::Editor(QWidget *parent):QMainWindow(parent){
 		connect(editorCentral,SIGNAL(textChanged()),
 			this,SLOT(modificarBool()));
 	 rutaArchivo="";
+	 
 	
 
 }
@@ -68,6 +69,7 @@ void Editor::hacerMenus(){
 	barraHerramientas->addAction(accionAbrir);
 	barraHerramientas->addAction(accionGuardar);
 	barraHerramientas->addAction(accionGuardarComo);
+	menuArchivo->addSeparator();
 	addToolBar(barraHerramientas);
 	
 
@@ -121,10 +123,10 @@ void Editor::slotAbrir(){
 	if(modificado){
 		int respuesta = QMessageBox::warning(this,QString("Abrir Documento"),
 		QString("Archivo Modificado ¿Que hago?"),
-		QMessageBox::Yes | QMessageBox::Cancel |QMessageBox::Save);
+		QMessageBox::Cancel |QMessageBox::Save | QMessageBox::Yes);
 		if(respuesta==QMessageBox::Cancel)return;
 		if (respuesta == QMessageBox::Save)slotGuardar();
-		if (respuesta == QMessageBox::Yes)slotGuardar();
+		
 	
 	}
 	
@@ -151,6 +153,8 @@ void Editor::slotAbrir(){
 		QString linea = flujo.readLine();
 		editorCentral->append(linea);
 	}
+	
+	anyadirArchivoMenu(rutaArchivo);
 	modificado = false;
 
 }
@@ -186,5 +190,28 @@ void Editor::closeEvent(QCloseEvent *event){
 	
 	}
 }
+void Editor::anyadirArchivoMenu(QString ruta){
+	QString rutaCorta = QFileInfo(ruta).fileName();
+	QAction *accion = new QAction(rutaCorta);
+	QVariant variantRutaCompleta(ruta);
+	accion->setData(variantRutaCompleta);
+	connect(accion,SIGNAL(triggered()),
+			this,SLOT(slotAbrirReciente()));
+	acciones.append(accion);
+	
+		menuArchivo->addAction(accion);
+	
+	
 
+	
+
+}
+void Editor:: slotAbrirReciente(){
+	QObject *oEmisor = sender();
+	QAction *actionCulpable = qobject_cast<QAction*>(oEmisor);
+	QString rutaCompleta= actionCulpable->data().toString();
+
+
+}
+	
 

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Editor_t {
-    QByteArrayData data[9];
-    char stringdata0[90];
+    QByteArrayData data[10];
+    char stringdata0[108];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,19 +33,20 @@ struct qt_meta_stringdata_Editor_t {
 static const qt_meta_stringdata_Editor_t qt_meta_stringdata_Editor = {
     {
 QT_MOC_LITERAL(0, 0, 6), // "Editor"
-QT_MOC_LITERAL(1, 7, 9), // "slotSalir"
-QT_MOC_LITERAL(2, 17, 0), // ""
-QT_MOC_LITERAL(3, 18, 9), // "slotAbrir"
-QT_MOC_LITERAL(4, 28, 11), // "slotGuardar"
-QT_MOC_LITERAL(5, 40, 15), // "slotGuardarComo"
-QT_MOC_LITERAL(6, 56, 13), // "modificarBool"
-QT_MOC_LITERAL(7, 70, 14), // "guardarFichero"
-QT_MOC_LITERAL(8, 85, 4) // "ruta"
+QT_MOC_LITERAL(1, 7, 17), // "slotAbrirReciente"
+QT_MOC_LITERAL(2, 25, 0), // ""
+QT_MOC_LITERAL(3, 26, 9), // "slotSalir"
+QT_MOC_LITERAL(4, 36, 9), // "slotAbrir"
+QT_MOC_LITERAL(5, 46, 11), // "slotGuardar"
+QT_MOC_LITERAL(6, 58, 15), // "slotGuardarComo"
+QT_MOC_LITERAL(7, 74, 13), // "modificarBool"
+QT_MOC_LITERAL(8, 88, 14), // "guardarFichero"
+QT_MOC_LITERAL(9, 103, 4) // "ruta"
 
     },
-    "Editor\0slotSalir\0\0slotAbrir\0slotGuardar\0"
-    "slotGuardarComo\0modificarBool\0"
-    "guardarFichero\0ruta"
+    "Editor\0slotAbrirReciente\0\0slotSalir\0"
+    "slotAbrir\0slotGuardar\0slotGuardarComo\0"
+    "modificarBool\0guardarFichero\0ruta"
 };
 #undef QT_MOC_LITERAL
 
@@ -55,7 +56,7 @@ static const uint qt_meta_data_Editor[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -63,20 +64,22 @@ static const uint qt_meta_data_Editor[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x0a /* Public */,
-       3,    0,   45,    2, 0x0a /* Public */,
-       4,    0,   46,    2, 0x0a /* Public */,
-       5,    0,   47,    2, 0x0a /* Public */,
-       6,    0,   48,    2, 0x0a /* Public */,
-       7,    1,   49,    2, 0x0a /* Public */,
+       1,    0,   49,    2, 0x0a /* Public */,
+       3,    0,   50,    2, 0x0a /* Public */,
+       4,    0,   51,    2, 0x0a /* Public */,
+       5,    0,   52,    2, 0x0a /* Public */,
+       6,    0,   53,    2, 0x0a /* Public */,
+       7,    0,   54,    2, 0x0a /* Public */,
+       8,    1,   55,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Bool,
     QMetaType::Bool,
     QMetaType::Void,
-    QMetaType::Bool, QMetaType::QString,    8,
+    QMetaType::Bool, QMetaType::QString,    9,
 
        0        // eod
 };
@@ -87,14 +90,15 @@ void Editor::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         auto *_t = static_cast<Editor *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->slotSalir(); break;
-        case 1: _t->slotAbrir(); break;
-        case 2: { bool _r = _t->slotGuardar();
+        case 0: _t->slotAbrirReciente(); break;
+        case 1: _t->slotSalir(); break;
+        case 2: _t->slotAbrir(); break;
+        case 3: { bool _r = _t->slotGuardar();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 3: { bool _r = _t->slotGuardarComo();
+        case 4: { bool _r = _t->slotGuardarComo();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 4: _t->modificarBool(); break;
-        case 5: { bool _r = _t->guardarFichero((*reinterpret_cast< QString(*)>(_a[1])));
+        case 5: _t->modificarBool(); break;
+        case 6: { bool _r = _t->guardarFichero((*reinterpret_cast< QString(*)>(_a[1])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -130,13 +134,13 @@ int Editor::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

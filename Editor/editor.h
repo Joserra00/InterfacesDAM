@@ -8,6 +8,8 @@
 #include <QString>
 #include <QDebug>
 #include <QCloseEvent>
+#include <QVector>
+#include <QFileInfo>
 
 class Editor : public QMainWindow{
 Q_OBJECT
@@ -15,6 +17,7 @@ public:
 	Editor(QWidget *parent = nullptr);
 	QTextEdit *editorCentral;
 	QMenu *menuArchivo;
+	QMenu *menuContextual;
 	QToolBar *barraHerramientas;
 	QAction *accionSalir;
 	QAction *accionAbrir;
@@ -22,13 +25,16 @@ public:
 	QAction *accionGuardarComo;
 	bool modificado;
 	QString rutaArchivo;
+	QVector <QAction*> acciones;
 	
 	
 private:
 	void hacerMenus();
 	void closeEvent(QCloseEvent *event);
+	void anyadirArchivoMenu(QString ruta);
 	
 public slots:
+	void slotAbrirReciente();
 	void slotSalir();
 	void slotAbrir();
 	bool slotGuardar();
