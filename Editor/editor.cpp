@@ -17,7 +17,10 @@ Editor::Editor(QWidget *parent):QMainWindow(parent){
 	hacerMenus();
 		connect(editorCentral,SIGNAL(textChanged()),
 			this,SLOT(modificarBool()));
+
 	 rutaArchivo="";
+	 dBuscar = NULL;
+	 dInfo= NULL;
 	 
 	
 
@@ -53,6 +56,25 @@ void Editor::hacerMenus(){
 			this,SLOT(slotGuardar()));
 	menuArchivo->addAction(accionGuardar);
 	
+	QMenu * menuEditar = new QMenu("Editar");
+	menuBar->addMenu(menuEditar);
+	
+	accionBuscar = new QAction("Buscar");
+	accionBuscar->setShortcut(QString("Ctrl+f"));
+	accionBuscar->setStatusTip("Buscar palabras");
+	connect (accionBuscar,SIGNAL(triggered()),
+		this,SLOT(slotBuscar()));
+		menuEditar->addAction(accionBuscar);
+	
+	accionInfo = new QAction("Info");
+	accionInfo->setShortcut(QString("Ctrl+i"));
+	accionInfo->setStatusTip("Info");
+	connect (accionInfo,SIGNAL(triggered()),
+		this,SLOT(slotInfo()));
+	menuEditar->addAction(accionInfo);
+	
+	
+	
 	accionGuardarComo = new QAction("Guardar Como");
 	accionGuardarComo->setIcon(QIcon("imatges/guardarcomo.png"));
 	accionGuardarComo->setShortcut(QString("Ctrl+v"));
@@ -70,6 +92,7 @@ void Editor::hacerMenus(){
 	barraHerramientas->addAction(accionGuardar);
 	barraHerramientas->addAction(accionGuardarComo);
 	menuArchivo->addSeparator();
+	
 	addToolBar(barraHerramientas);
 	
 
@@ -120,14 +143,8 @@ bool Editor::guardarFichero(QString ruta) {
 
 
 void Editor::slotAbrir(){
-	if(modificado){
-		int respuesta = QMessageBox::warning(this,QString("Abrir Documento"),
-		QString("Archivo Modificado ¿Que hago?"),
-		QMessageBox::Cancel |QMessageBox::Save | QMessageBox::Yes);
-		if(respuesta==QMessageBox::Cancel)return;
-		if (respuesta == QMessageBox::Save)slotGuardar();
-		
-	
+	if(!continuar()){
+	return;
 	}
 	
 	int respuesta = QMessageBox::warning(this,QString("Abrir Documento"),
@@ -139,14 +156,15 @@ void Editor::slotAbrir(){
 	qDebug() << "Vas a abrir el archivo " << ruta;
 	abrirFichero(ruta);
 	anyadirArchivoMenu(ruta);
+	
 
 }
 bool Editor::abrirFichero(QString ruta){
 	
 	if(ruta.isEmpty()){
 		return false;
-	}	
-	
+	}
+	qDebug()<<modificado;
 	rutaArchivo=ruta;
 		
 
@@ -205,26 +223,93 @@ void Editor::closeEvent(QCloseEvent *event){
 	}
 }
 void Editor::anyadirArchivoMenu(QString ruta){
+	for(int i =0; i<acciones.size();i++){
+		disconnect(acciones.at(i),SIGNAL(triggered()));
+		menuArchivo->removeAction(acciones.at(i));
+	}
+	for(int i =0; i<acciones.size();i++){
+		delete acciones[i];
+	}
+	acciones.clear();
+	listaArchivosRecientes.removeAll(ruta);
+	listaArchivosRecientes.prepend(ruta);
+	
+	foreach(QString ruta , listaArchivosRecientes){
+	
 	QString rutaCorta = QFileInfo(ruta).fileName();
 	QAction *accion = new QAction(rutaCorta);
+	
 	QVariant variantRutaCompleta(ruta);
 	accion->setData(variantRutaCompleta);
+	
+	acciones.append(accion);
+	menuArchivo->addAction(accion);
+	
 	connect(accion,SIGNAL(triggered()),
 			this,SLOT(slotAbrirReciente()));
-	acciones.append(accion);
+			
 	
-		menuArchivo->addAction(accion);
-	
+	}
 	
 
 	
 
 }
-void Editor:: slotAbrirReciente(){
+bool Editor::continuar(){
+	if(modificado){
+		int respuesta = QMessageBox::warning(this,QString("Abrir Documento"),
+		QString("Archivo Modificado ¿Que hago, Continuo?"),
+		QMessageBox::Cancel |QMessageBox::Save | QMessageBox::Yes);
+		if(respuesta==QMessageBox::Cancel)return false;
+		if (respuesta == QMessageBox::Save)return slotGuardar();
+		
+	
+	}
+	return true;
+}
+void Editor::slotAbrirReciente(){
+	if(!continuar()){
+	return;
+	}
 	QObject *oEmisor = sender();
 	QAction *actionCulpable = qobject_cast<QAction*>(oEmisor);
 	QString rutaCompleta= actionCulpable->data().toString();
 	abrirFichero(rutaCompleta);
+
+
+}
+void Editor::slotBuscar(){
+	if(dBuscar==NULL){
+		dBuscar = new DBuscar();
+		connect(dBuscar, SIGNAL(senyalBuscarAlante(QString)),
+			this,SLOT(slotBuscarAlante(QString)));
+	}
+	dBuscar->show();
+
+	
+
+
+
+}
+void Editor::slotBuscarAlante(QString palabra){
+	qDebug()<<(editorCentral->find(palabra));
+	
+	
+}
+void Editor::slotInfo(){
+	if(dInfo==NULL){
+		QTextDocument *document = editorCentral->document();
+		dInfo = new DInfo(document);
+					connect(editorCentral,SIGNAL(textChanged()),
+			dInfo,SLOT(slotActualizar()));
+		
+	
+	}
+	
+	dInfo->show();
+
+	
+
 
 
 }

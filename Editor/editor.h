@@ -10,6 +10,8 @@
 #include <QCloseEvent>
 #include <QVector>
 #include <QFileInfo>
+#include "dbuscar.h"
+#include "dinfo.h"
 
 class Editor : public QMainWindow{
 Q_OBJECT
@@ -26,6 +28,10 @@ public:
 	bool modificado;
 	QString rutaArchivo;
 	QVector <QAction*> acciones;
+	QStringList listaArchivosRecientes;
+	DBuscar *dBuscar;
+	QAction *accionBuscar,*accionInfo;
+	DInfo *dInfo;
 	
 	
 private:
@@ -33,6 +39,7 @@ private:
 	void closeEvent(QCloseEvent *event);
 	void anyadirArchivoMenu(QString ruta);
 	bool abrirFichero(QString ruta);
+	bool continuar();
 	
 public slots:
 	void slotAbrirReciente();
@@ -42,7 +49,9 @@ public slots:
 	bool slotGuardarComo();
 	void modificarBool();
 	bool guardarFichero(QString ruta);
-
+	void slotBuscar();
+	void slotBuscarAlante(QString);
+	void slotInfo();
 
 	
 };
