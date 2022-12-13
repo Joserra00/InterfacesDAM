@@ -12,6 +12,8 @@
 #include <QFileInfo>
 #include "dbuscar.h"
 #include "dinfo.h"
+#include "dexamen.h"
+#include <QPushButton>
 
 class Editor : public QMainWindow{
 Q_OBJECT
@@ -32,7 +34,12 @@ public:
 	DBuscar *dBuscar;
 	QAction *accionBuscar,*accionInfo;
 	DInfo *dInfo;
-	
+	QAction *accionExamen;
+	DExamen *dExamen;
+	QLabel *lEsModificado;
+	QLabel *lEsNombreArchivo;
+	QPushButton *recargar;
+	void crearBarraEstado();
 	
 private:
 	void hacerMenus();
@@ -42,6 +49,7 @@ private:
 	bool continuar();
 	
 public slots:
+	void slotAbrirFicheroExamen(QString);
 	void slotAbrirReciente();
 	void slotSalir();
 	void slotAbrir();
@@ -52,6 +60,8 @@ public slots:
 	void slotBuscar();
 	void slotBuscarAlante(QString);
 	void slotInfo();
+	void slotExamen();
+	void slotAbrirBtn();
 
 	
 };

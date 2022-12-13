@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QTextBlock>
 #include <QTextStream>
+#include <QStatusBar>
 Editor::Editor(QWidget *parent):QMainWindow(parent){
 
 
@@ -21,7 +22,8 @@ Editor::Editor(QWidget *parent):QMainWindow(parent){
 	 rutaArchivo="";
 	 dBuscar = NULL;
 	 dInfo= NULL;
-	 
+	 dExamen=NULL;
+	 crearBarraEstado();
 	
 
 }
@@ -73,6 +75,16 @@ void Editor::hacerMenus(){
 		this,SLOT(slotInfo()));
 	menuEditar->addAction(accionInfo);
 	
+	QMenu * menuExamen = new QMenu("Examen");
+	menuBar->addMenu(menuExamen);
+	
+	accionExamen = new QAction("Examen");
+	accionExamen->setShortcut(QString("Ctrl+e"));
+	accionExamen->setStatusTip("Examen");
+	menuExamen->addAction(accionExamen);
+	connect (accionExamen,SIGNAL(triggered()),
+		this,SLOT(slotExamen()));
+	
 	
 	
 	accionGuardarComo = new QAction("Guardar Como");
@@ -96,6 +108,35 @@ void Editor::hacerMenus(){
 	addToolBar(barraHerramientas);
 	
 
+}
+void Editor::crearBarraEstado(){
+	lEsNombreArchivo = new QLabel("Sin nombre");
+	QStatusBar *barraEstado = statusBar();
+	barraEstado->addWidget(lEsNombreArchivo);
+	lEsModificado = new QLabel("Archivo no modificado");
+	barraEstado->addWidget(lEsModificado);
+	recargar = new QPushButton("Rescargar");
+	recargar->hide();
+	connect (recargar,SIGNAL(clicked()),
+		this,SLOT(slotAbrirBtn()));
+		barraEstado->addWidget(recargar);
+	
+}
+void Editor::slotAbrirBtn(){
+	QFile fichero(rutaArchivo);
+	qDebug()<< "Vas a guardar" << rutaArchivo;
+	if (!fichero.open(QIODevice::ReadOnly)){
+		QMessageBox::critical(this,QString("Problema gordo"),
+			QString("no podemos tocar el arhicvo"),QMessageBox::Ok);
+			
+			}
+	QTextDocument *document = editorCentral->document();
+	document->clear();
+	QTextStream flujo(&fichero);
+	while(!flujo.atEnd()){
+		QString linea = flujo.readLine();
+		editorCentral->append(linea);
+	}
 }
 bool Editor::slotGuardarComo(){
 	 QString ruta =QFileDialog::getSaveFileName(this, tr("Batechar i Guardar"),".",tr("Texto(*.txt *.doc *.info)"));
@@ -132,9 +173,11 @@ bool Editor::guardarFichero(QString ruta) {
     for(int i=0; i< editorCentral->document()->blockCount();i++){
         stream << editorCentral->document()->findBlockByNumber(i).text() << "\n";
         }
-        
+        lEsNombreArchivo->setText(rutaArchivo);
 	rutaArchivo=ruta;
     	modificado=false;
+    	recargar->hide();
+    	lEsModificado->setText("Archivo no modificado");
         return true;
 }
 
@@ -159,6 +202,11 @@ void Editor::slotAbrir(){
 	
 
 }
+void Editor::slotAbrirFicheroExamen(QString ruta){
+	abrirFichero(ruta);
+	
+
+}
 bool Editor::abrirFichero(QString ruta){
 	
 	if(ruta.isEmpty()){
@@ -166,7 +214,7 @@ bool Editor::abrirFichero(QString ruta){
 	}
 	qDebug()<<modificado;
 	rutaArchivo=ruta;
-		
+	lEsNombreArchivo->setText(rutaArchivo);
 
 	QFile fichero(ruta);
 	if (!fichero.open(QIODevice::ReadOnly)){
@@ -185,6 +233,8 @@ bool Editor::abrirFichero(QString ruta){
 	
 	
 	modificado = false;
+	recargar->hide();
+	lEsModificado->setText("Archivo no modificado");
 	return true;
 
 
@@ -196,7 +246,8 @@ void Editor::slotSalir(){
 
 }
 void Editor::modificarBool(){
-
+lEsModificado->setText("Archivo modificado");
+recargar->show();
 	modificado=true;
 
 }
@@ -247,6 +298,10 @@ void Editor::anyadirArchivoMenu(QString ruta){
 	
 	connect(accion,SIGNAL(triggered()),
 			this,SLOT(slotAbrirReciente()));
+			if(dExamen!=NULL){
+				dExamen->actualizarDatos(listaArchivosRecientes);
+			
+			}
 			
 	
 	}
@@ -308,8 +363,20 @@ void Editor::slotInfo(){
 	
 	dInfo->show();
 
-	
 
+}
+void Editor::slotExamen(){
+
+	if(dExamen==NULL){
+		dExamen = new DExamen();
+				dExamen->actualizarDatos(listaArchivosRecientes);
+				connect(dExamen, SIGNAL(senyalRuta(QString)),
+			this,SLOT(slotAbrirFicheroExamen(QString)));
+		
+	
+	}
+	
+	dExamen->show();
 
 
 }
