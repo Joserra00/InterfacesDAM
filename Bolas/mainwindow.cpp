@@ -12,13 +12,17 @@ MainWindow::MainWindow(QWidget * parent) : QMainWindow(parent){
 	temporizador->setSingleShot(false);
 	temporizador->start();
 	resize (800,600);
-	QStringList lista = {"Manolo","Pablo","Antonio","Geronimo","Pepe","Nacho","Sam","Gofre","Santo"};
+	QStringList lista = {"Manolo","Pablo","Antonio","Geronimo","Pepe","Nacho","Sam","Gofre","Santo","Franco"};
 	listaNombres=lista;
 		connect(temporizador,SIGNAL(timeout()),
 			this,SLOT(slotTemporizador()));
 	dInformacion=NULL;
 	dPararBolas=NULL;
 	dExamen=NULL;
+	dConfVisualBolas=NULL;
+	dConfVelocidades=NULL;
+	dInfoTabla=NULL;
+	dArrastraImagen=NULL;
 	crearActions();
 	crearMenus();
 	crearBolas();
@@ -32,7 +36,6 @@ void MainWindow::paintEvent(QPaintEvent * e){
 		
 	}
 	bolaJugador->pintar(pintor);
-	bolaJugador->resalte = Bola::BolaPatron;
 	
 }
 void MainWindow::keyPressEvent(QKeyEvent * e){
@@ -67,14 +70,32 @@ void MainWindow::crearActions(){
 	accionExamen = new QAction("Examen");
 	connect(accionExamen,SIGNAL(triggered()),
 			this,SLOT(slotExamen()));
+	accionConfBolas = new QAction("ConfBolas");
+	connect(accionConfBolas,SIGNAL(triggered()),
+			this,SLOT(slotConfBolas()));
+	accionConfVelocidades= new QAction("ConfVelocidades");
+	connect(accionConfVelocidades,SIGNAL(triggered()),
+			this,SLOT(slotVelocidadBolas()));
+	accionInfoTabla = new QAction("InfoTabla");
+	connect(accionInfoTabla,SIGNAL(triggered()),
+			this,SLOT(slotInfoTabla()));
+	accionArrastraImagen = new QAction("Arrastra Imagen");
+	connect(accionArrastraImagen,SIGNAL(triggered()),
+			this,SLOT(slotArrastraImagen()));
 }
 void MainWindow::crearMenus(){
 	//QMenuBar *menuBar = menuBar();
 	QMenu * menuArchivo = menuBar()->addMenu("Archivo");
+	QMenu * menuBolas = menuBar()->addMenu("ConfBolas");
 	menuArchivo->addAction(accionInformacion);
 	menuArchivo->addAction(accionPararBolas);
 	menuArchivo->addAction(accionExamen);
+	menuBolas->addAction(accionConfBolas);
+	menuBolas->addAction(accionConfVelocidades);
+	menuBolas->addAction(accionInfoTabla);
+	menuBolas->addAction(accionArrastraImagen);
 }
+
 void MainWindow::slotTemporizador(){
 
 	for(int i = 0; i<NUMBOLAS; i++){
@@ -121,6 +142,10 @@ void MainWindow::crearBolas(){
 	}
 	bolaJugador = new Bola(50,50,0.5,0.5);
 	bolaJugador->color=QColor("Black");
+	QImage imagen("smiley.png");
+	bolaJugador->imagen = imagen.scaled(bolaJugador->diametro,bolaJugador->diametro);
+	bolaJugador->resalte = Bola::BolaImagen;
+	
 }
 
 void MainWindow::slotPararBolas(){
@@ -148,3 +173,38 @@ void MainWindow::slotExamen(){
 
 
 }
+
+void MainWindow::slotConfBolas(){
+if(dConfVisualBolas==NULL){
+		dConfVisualBolas = new DConfVisualBolas(bolas);
+		}
+		dConfVisualBolas->show();
+
+}
+
+
+void MainWindow::slotVelocidadBolas(){
+	if(dConfVelocidades==NULL){
+		dConfVelocidades = new DConfVelocidades(&bolas);
+		}
+		dConfVelocidades->show();
+
+}
+void MainWindow::slotInfoTabla(){
+if(dInfoTabla==NULL){
+		dInfoTabla = new DInfoTabla(&bolas);
+		}
+		dInfoTabla->show();
+
+
+
+}
+void MainWindow::slotArrastraImagen(){
+if(dArrastraImagen==NULL){
+		dArrastraImagen = new DArrastraImagen(bolaJugador);
+		}
+		dArrastraImagen->show();
+
+
+}
+

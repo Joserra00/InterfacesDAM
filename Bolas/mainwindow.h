@@ -11,6 +11,10 @@
 #include <QKeyEvent>
 #include "dpararbolas.h"
 #include "dexamen.h"
+#include "dconfvisualbolas.h"
+#include "dconfvelocidades.h"
+#include "dinfotabla.h"
+#include "darrastraimagen.h"
 class MainWindow : public QMainWindow{
 Q_OBJECT
 public: 
@@ -25,16 +29,25 @@ public:
 		DPararBolas *dPararBolas;
 		DExamen *dExamen;
 		Bola *bolaJugador;
+		DInfoTabla *dInfoTabla;
+		DArrastraImagen *dArrastraImagen;
 		void crearBolas();
 		void crearMenus();
 		void crearActions();
-		QAction *accionInformacion,*accionPararBolas,*accionExamen;
+		DConfVisualBolas *dConfVisualBolas;
+		DConfVelocidades *dConfVelocidades;
+		QAction *accionInformacion,*accionPararBolas,*accionExamen,*accionConfBolas,*accionConfVelocidades, *accionInfoTabla, *accionArrastraImagen;
 		void keyPressEvent(QKeyEvent *e);
 public slots:
 	void slotTemporizador();
 	void slotInformacion();
 	void slotPararBolas();
 	void slotExamen();
+	void slotConfBolas();
+	void slotVelocidadBolas();
+	void slotInfoTabla();
+	void slotArrastraImagen();
+
 	
 	
 

@@ -19,6 +19,7 @@ resalte = BolaCirculo;
 	rebotes.resize(IZQUIERDA+1);
 	for(int i = 0; i<rebotes.size();i++)
 		rebotes[i] = 0;
+		
 	
 
 }
@@ -61,16 +62,7 @@ void Bola::pintar(QPainter &pintor){
 	pintor.setBrush(Qt::green);
 	pintor.drawRect(posX,posY,anchoVerde,3);
 	pintor.setBrush(Qt::red);
-	for(int l = ARRIBA; l<=IZQUIERDA; l = l+1){
-		int pX = posX + diametro/2;
-		int pY = posY + diametro/2;
-		if(l == ARRIBA) pY = posY -10;
-		if(l == DERECHA) pX = posX + diametro +10;
-		if(l == ABAJO) pY = posY+ diametro +10;
-		if(l == IZQUIERDA) pX = posX -10;
-		pintor.drawText(pX,pY,QString::number(rebotes.at(l)));
-		
-	}
+	
 	pintor.drawRect(posX + anchoVerde,posY,anchoRojo,3);
 	switch(resalte){
 		case BolaPatron:
@@ -82,6 +74,17 @@ void Bola::pintar(QPainter &pintor){
 			pintor.drawImage(posX,posY,imagen);
 			break;
 	}
+	
+	/*for(int l = ARRIBA; l<=IZQUIERDA; l = l+1){
+		int pX = posX + diametro/2;
+		int pY = posY + diametro/2;
+		if(l == ARRIBA) pY = posY -10;
+		if(l == DERECHA) pX = posX + diametro +10;
+		if(l == ABAJO) pY = posY+ diametro +10;
+		if(l == IZQUIERDA) pX = posX -10;
+		pintor.drawText(pX,pY,QString::number(rebotes.at(l)));
+		
+	}*/
 
 
 
@@ -151,5 +154,11 @@ bool Bola::chocar(Bola * otra){
 	return hayColision;
 	
 	
+
+}
+void Bola::parar(){
+	velX=0;
+	velY=0;
+
 
 }
