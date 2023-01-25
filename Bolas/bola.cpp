@@ -12,6 +12,7 @@ Bola::Bola(){
 Bola::Bola(float px, float py, float vx,float vy):
 			posX(px),posY(py),velX(vx),velY(vy),vida(VIDAMAX)
 {
+resalte = BolaCirculo;
 	vida = VIDAMAX;
 	color = QColor(rand()%256,rand()%256,rand()%256);
 	diametro=50;
