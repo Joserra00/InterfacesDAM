@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dexamen.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -48,7 +48,7 @@ public:
 
     void retranslateUi(QDialog *DExamen)
     {
-        DExamen->setWindowTitle(QCoreApplication::translate("DExamen", "Dialog", nullptr));
+        DExamen->setWindowTitle(QApplication::translate("DExamen", "Dialog", nullptr));
     } // retranslateUi
 
 };

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dconfvisualbolas.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -60,10 +60,10 @@ public:
 
     void retranslateUi(QDialog *DConfVisualBolas)
     {
-        DConfVisualBolas->setWindowTitle(QCoreApplication::translate("DConfVisualBolas", "Dialog", nullptr));
-        tabBolas->setTabText(tabBolas->indexOf(tab), QCoreApplication::translate("DConfVisualBolas", "Tab 1", nullptr));
-        tabBolas->setTabText(tabBolas->indexOf(tab_2), QCoreApplication::translate("DConfVisualBolas", "Tab 2", nullptr));
-        btnTodasCirculo->setText(QCoreApplication::translate("DConfVisualBolas", "Todas a Circulo", nullptr));
+        DConfVisualBolas->setWindowTitle(QApplication::translate("DConfVisualBolas", "Dialog", nullptr));
+        tabBolas->setTabText(tabBolas->indexOf(tab), QApplication::translate("DConfVisualBolas", "Tab 1", nullptr));
+        tabBolas->setTabText(tabBolas->indexOf(tab_2), QApplication::translate("DConfVisualBolas", "Tab 2", nullptr));
+        btnTodasCirculo->setText(QApplication::translate("DConfVisualBolas", "Todas a Circulo", nullptr));
     } // retranslateUi
 
 };

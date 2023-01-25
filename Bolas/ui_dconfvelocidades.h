@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dconfvelocidades.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -92,11 +92,11 @@ public:
 
     void retranslateUi(QDialog *DConfVelocidades)
     {
-        DConfVelocidades->setWindowTitle(QCoreApplication::translate("DConfVelocidades", "Dialog", nullptr));
-        tabBolas->setTabText(tabBolas->indexOf(tab), QCoreApplication::translate("DConfVelocidades", "Tab 1", nullptr));
-        tabBolas->setTabText(tabBolas->indexOf(tab_2), QCoreApplication::translate("DConfVelocidades", "Tab 2", nullptr));
-        btnPararTodas->setText(QCoreApplication::translate("DConfVelocidades", "Parar todas", nullptr));
-        btnActivarColision->setText(QCoreApplication::translate("DConfVelocidades", "Activar Colision", nullptr));
+        DConfVelocidades->setWindowTitle(QApplication::translate("DConfVelocidades", "Dialog", nullptr));
+        tabBolas->setTabText(tabBolas->indexOf(tab), QApplication::translate("DConfVelocidades", "Tab 1", nullptr));
+        tabBolas->setTabText(tabBolas->indexOf(tab_2), QApplication::translate("DConfVelocidades", "Tab 2", nullptr));
+        btnPararTodas->setText(QApplication::translate("DConfVelocidades", "Parar todas", nullptr));
+        btnActivarColision->setText(QApplication::translate("DConfVelocidades", "Activar Colision", nullptr));
     } // retranslateUi
 
 };

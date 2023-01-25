@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dinfotabla.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -47,7 +47,7 @@ public:
 
     void retranslateUi(QDialog *DInfoTabla)
     {
-        DInfoTabla->setWindowTitle(QCoreApplication::translate("DInfoTabla", "Dialog", nullptr));
+        DInfoTabla->setWindowTitle(QApplication::translate("DInfoTabla", "Dialog", nullptr));
     } // retranslateUi
 
 };

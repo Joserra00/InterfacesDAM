@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget * parent) : QMainWindow(parent){
 	dConfVelocidades=NULL;
 	dInfoTabla=NULL;
 	dArrastraImagen=NULL;
+	dPracticaExamen=NULL;
 	crearActions();
 	crearMenus();
 	crearBolas();
@@ -92,7 +93,9 @@ void MainWindow::crearActions(){
 	accionCargar = new QAction("Cargar partida");
 	connect(accionCargar,SIGNAL(triggered()),
 			this,SLOT(slotCargar()));
-			
+	accionExamenPractica = new QAction("Examen practica");
+	connect(accionExamenPractica,SIGNAL(triggered()),
+			this,SLOT(slotPracticaExamen()));
 }
 void MainWindow::crearMenus(){
 	//QMenuBar *menuBar = menuBar();
@@ -107,6 +110,7 @@ void MainWindow::crearMenus(){
 	menuBolas->addAction(accionArrastraImagen);
 	menuBolas->addAction(accionGuardarPartida);
 	menuBolas->addAction(accionCargar);
+	menuBolas->addAction(accionExamenPractica);
 }
 
 void MainWindow::slotTemporizador(){
@@ -221,7 +225,7 @@ if(dArrastraImagen==NULL){
 
 }
 void MainWindow::slotGuardarPartida(){
-	QJsonObject objetoPrincipal;
+	/*QJsonObject objetoPrincipal;
 	objetoPrincipal["autor"] = QString("joserraco");
 	QJsonObject objetoBolas;
 	objetoBolas["bolas"] = bolas.size();
@@ -244,27 +248,45 @@ void MainWindow::slotGuardarPartida(){
 		QFile fichero(rutaArchivo);
 		fichero.open(QIODevice::WriteOnly);
 		fichero.write(documento.toJson());
-		/*QTextStream outStream(&fichero);
-		outStream<<"Hola "<<Qt::endl;*/
+		QTextStream outStream(&fichero);
+		outStream<<"Hola "<<Qt::endl;
 		fichero.close();
 		
 
-
+*/
 
 }
 void MainWindow::slotCargar(){
-	QFile fichero("./partida.sav");
+	/*QFile fichero("./partida.sav");
 	if(saveFile.open(QIODevice::ReadOnly)){
 	return;
 	}
 	QByteArray savedData = fichero.readAll();
 	QJsonDocument documento(QJsonDocument::fromJson(savedData));
 	
-
+*/
 
 
 
 }
+void MainWindow::slotPracticaExamen(){
+if(dPracticaExamen==NULL){
+		dPracticaExamen = new DPracticaExamen(&bolas,height());
+		}
+		dPracticaExamen->show();
+
+	
+
+
+}
+
+
+
+
+
+
+
+
 
 
 

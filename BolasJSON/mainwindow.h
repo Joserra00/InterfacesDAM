@@ -15,6 +15,7 @@
 #include "dconfvelocidades.h"
 #include "dinfotabla.h"
 #include "darrastraimagen.h"
+#include "dpracticaexamen.h"
 class MainWindow : public QMainWindow{
 Q_OBJECT
 public: 
@@ -31,12 +32,13 @@ public:
 		Bola *bolaJugador;
 		DInfoTabla *dInfoTabla;
 		DArrastraImagen *dArrastraImagen;
+		DPracticaExamen *dPracticaExamen;
 		void crearBolas();
 		void crearMenus();
 		void crearActions();
 		DConfVisualBolas *dConfVisualBolas;
 		DConfVelocidades *dConfVelocidades;
-		QAction *accionInformacion,*accionPararBolas,*accionExamen,*accionConfBolas,*accionConfVelocidades, *accionInfoTabla, *accionArrastraImagen,*accionGuardarPartida,*accionCargar;
+		QAction *accionInformacion,*accionPararBolas,*accionExamen,*accionConfBolas,*accionConfVelocidades, *accionInfoTabla, *accionArrastraImagen,*accionGuardarPartida,*accionCargar,*accionExamenPractica;
 		void keyPressEvent(QKeyEvent *e);
 public slots:
 	void slotGuardarPartida();
@@ -49,6 +51,7 @@ public slots:
 	void slotInfoTabla();
 	void slotArrastraImagen();
 	void slotCargar();
+	void slotPracticaExamen();
 
 	
 	

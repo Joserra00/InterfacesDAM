@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widgetconfbola.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -69,14 +69,14 @@ public:
 
     void retranslateUi(QWidget *WidgetConfBola)
     {
-        WidgetConfBola->setWindowTitle(QCoreApplication::translate("WidgetConfBola", "Form", nullptr));
-        groupBox->setTitle(QCoreApplication::translate("WidgetConfBola", "GroupBox", nullptr));
-        rbCirculo->setText(QCoreApplication::translate("WidgetConfBola", "Circulo", nullptr));
-        rbPatron->setText(QCoreApplication::translate("WidgetConfBola", "Patron", nullptr));
-        rbImagen->setText(QCoreApplication::translate("WidgetConfBola", "Imagen", nullptr));
-        label->setText(QCoreApplication::translate("WidgetConfBola", "Nombre", nullptr));
-        btnColor->setText(QCoreApplication::translate("WidgetConfBola", "Color", nullptr));
-        btnImagen->setText(QCoreApplication::translate("WidgetConfBola", "imagen", nullptr));
+        WidgetConfBola->setWindowTitle(QApplication::translate("WidgetConfBola", "Form", nullptr));
+        groupBox->setTitle(QApplication::translate("WidgetConfBola", "GroupBox", nullptr));
+        rbCirculo->setText(QApplication::translate("WidgetConfBola", "Circulo", nullptr));
+        rbPatron->setText(QApplication::translate("WidgetConfBola", "Patron", nullptr));
+        rbImagen->setText(QApplication::translate("WidgetConfBola", "Imagen", nullptr));
+        label->setText(QApplication::translate("WidgetConfBola", "Nombre", nullptr));
+        btnColor->setText(QApplication::translate("WidgetConfBola", "Color", nullptr));
+        btnImagen->setText(QApplication::translate("WidgetConfBola", "imagen", nullptr));
     } // retranslateUi
 
 };

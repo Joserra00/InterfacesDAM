@@ -1,19 +1,18 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'dinfotabla.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.3)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.8)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "dinfotabla.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'dinfotabla.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.15.3. It"
+#error "This file was generated using the moc from 5.12.8. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -57,14 +56,14 @@ static const uint qt_meta_data_SpinBoxDelegate[] = {
 
 void SpinBoxDelegate::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
-    (void)_c;
-    (void)_a;
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject SpinBoxDelegate::staticMetaObject = { {
-    QMetaObject::SuperData::link<QStyledItemDelegate::staticMetaObject>(),
+    &QStyledItemDelegate::staticMetaObject,
     qt_meta_stringdata_SpinBoxDelegate.data,
     qt_meta_data_SpinBoxDelegate,
     qt_static_metacall,
@@ -127,14 +126,14 @@ static const uint qt_meta_data_ModeloTabla[] = {
 
 void ModeloTabla::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
-    (void)_c;
-    (void)_a;
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject ModeloTabla::staticMetaObject = { {
-    QMetaObject::SuperData::link<QAbstractTableModel::staticMetaObject>(),
+    &QAbstractTableModel::staticMetaObject,
     qt_meta_stringdata_ModeloTabla.data,
     qt_meta_data_ModeloTabla,
     qt_static_metacall,
@@ -210,18 +209,18 @@ void DInfoTabla::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
         auto *_t = static_cast<DInfoTabla *>(_o);
-        (void)_t;
+        Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->slotEjemplo(); break;
         case 1: _t->slotTemporizador(); break;
         default: ;
         }
     }
-    (void)_a;
+    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject DInfoTabla::staticMetaObject = { {
-    QMetaObject::SuperData::link<QDialog::staticMetaObject>(),
+    &QDialog::staticMetaObject,
     qt_meta_stringdata_DInfoTabla.data,
     qt_meta_data_DInfoTabla,
     qt_static_metacall,

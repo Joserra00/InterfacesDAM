@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widgetconfvelocidad.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.3
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -50,8 +50,8 @@ public:
 
     void retranslateUi(QWidget *WidgetConfVelocidad)
     {
-        WidgetConfVelocidad->setWindowTitle(QCoreApplication::translate("WidgetConfVelocidad", "Form", nullptr));
-        cbColisionar->setText(QCoreApplication::translate("WidgetConfVelocidad", "Colisiona", nullptr));
+        WidgetConfVelocidad->setWindowTitle(QApplication::translate("WidgetConfVelocidad", "Form", nullptr));
+        cbColisionar->setText(QApplication::translate("WidgetConfVelocidad", "Colisiona", nullptr));
     } // retranslateUi
 
 };
