@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QByteArray>
+#include <QJsonValue>
 #define NUMBOLAS 10
 MainWindow::MainWindow(QWidget * parent) : QMainWindow(parent){
 	temporizador = new QTimer();
@@ -131,7 +132,7 @@ void MainWindow::slotTemporizador(){
 				if(bolas.at(i)->chocar(bolas.at(j))){
 					bolas.at(i)->vida -=2;
 					bolas.at(j)->vida -=2;
-					qDebug()<<"Bola"<<bolas.at(i)->nombre<<"choca con bola"<< bolas.at(j)->nombre<<" en " << bolas.at(i)->posX << " , "<<bolas.at(i)->posY;
+					//qDebug()<<"Bola"<<bolas.at(i)->nombre<<"choca con bola"<< bolas.at(j)->nombre<<" en " << bolas.at(i)->posX << " , "<<bolas.at(i)->posY;
 				}
 				
 			}
@@ -225,7 +226,7 @@ if(dArrastraImagen==NULL){
 
 }
 void MainWindow::slotGuardarPartida(){
-	/*QJsonObject objetoPrincipal;
+	QJsonObject objetoPrincipal;
 	objetoPrincipal["autor"] = QString("joserraco");
 	QJsonObject objetoBolas;
 	objetoBolas["bolas"] = bolas.size();
@@ -248,25 +249,47 @@ void MainWindow::slotGuardarPartida(){
 		QFile fichero(rutaArchivo);
 		fichero.open(QIODevice::WriteOnly);
 		fichero.write(documento.toJson());
-		QTextStream outStream(&fichero);
-		outStream<<"Hola "<<Qt::endl;
+		/*QTextStream outStream(&fichero);
+		outStream<<"Hola "<<Qt::endl;*/
 		fichero.close();
 		
 
-*/
+
 
 }
 void MainWindow::slotCargar(){
-	/*QFile fichero("./partida.sav");
-	if(saveFile.open(QIODevice::ReadOnly)){
+	QFile loadFile(QStringLiteral("./partida.sav"));
+	if(!loadFile.open(QIODevice::ReadOnly)){
 	return;
 	}
-	QByteArray savedData = fichero.readAll();
-	QJsonDocument documento(QJsonDocument::fromJson(savedData));
 	
-*/
+	QByteArray savedData = loadFile.readAll();
+	QJsonDocument documento(QJsonDocument::fromJson(savedData));
+	QJsonObject objetoPrincipal = documento.object();
+	QStringList listaKeys =objetoPrincipal.keys();
+	/*for(const auto& i : listaKeys){
+		qDebug()<<i;
+	}*/
+
+	if(!objetoPrincipal.contains("seccionBolas"))
+		return ;
+	QJsonValue valorBolas;
+	valorBolas = objetoPrincipal["seccionBolas"];
+
+	if(!valorBolas.isObject())
+		return;
+
+	if(valorBolas.type()!=QJsonValue::Object)
+		return;
+	QJsonObject objetoBolas = valorBolas.toObject();
+	QJsonValue bolaValue;
+	bolaValue = objetoBolas["bolas"];
+	
+	
+	qDebug()<<QString::number(bolaValue.toDouble());
 
 
+	
 
 }
 void MainWindow::slotPracticaExamen(){

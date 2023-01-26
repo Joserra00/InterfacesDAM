@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dpracticaexamen.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -60,10 +60,10 @@ public:
 
     void retranslateUi(QDialog *DPracticaExamen)
     {
-        DPracticaExamen->setWindowTitle(QApplication::translate("DPracticaExamen", "Dialog", nullptr));
-        tabBolas->setTabText(tabBolas->indexOf(tab), QApplication::translate("DPracticaExamen", "Tab 1", nullptr));
-        tabBolas->setTabText(tabBolas->indexOf(tab_2), QApplication::translate("DPracticaExamen", "Tab 2", nullptr));
-        btnGravedad->setText(QApplication::translate("DPracticaExamen", "Gravedad todas", nullptr));
+        DPracticaExamen->setWindowTitle(QCoreApplication::translate("DPracticaExamen", "Dialog", nullptr));
+        tabBolas->setTabText(tabBolas->indexOf(tab), QCoreApplication::translate("DPracticaExamen", "Tab 1", nullptr));
+        tabBolas->setTabText(tabBolas->indexOf(tab_2), QCoreApplication::translate("DPracticaExamen", "Tab 2", nullptr));
+        btnGravedad->setText(QCoreApplication::translate("DPracticaExamen", "Gravedad todas", nullptr));
     } // retranslateUi
 
 };

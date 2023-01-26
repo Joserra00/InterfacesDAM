@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'widgetgravedad.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.15.3
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -37,8 +37,8 @@ public:
 
     void retranslateUi(QWidget *WidgetGravedad)
     {
-        WidgetGravedad->setWindowTitle(QApplication::translate("WidgetGravedad", "Form", nullptr));
-        activarGravedad->setText(QApplication::translate("WidgetGravedad", "Activar Gravedad", nullptr));
+        WidgetGravedad->setWindowTitle(QCoreApplication::translate("WidgetGravedad", "Form", nullptr));
+        activarGravedad->setText(QCoreApplication::translate("WidgetGravedad", "Activar Gravedad", nullptr));
     } // retranslateUi
 
 };
